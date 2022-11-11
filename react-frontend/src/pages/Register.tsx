@@ -1,16 +1,27 @@
+import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registered, SetRegistered] = useState(false);
   const handleSubmit = (e: SyntheticEvent) => {
-    console.log({
-      name,
-      email,
-      password,
-    });
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:8000/api/register", {
+        name,
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        SetRegistered(true);
+      });
   };
+  if (registered) return <Navigate to="/login" />;
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -20,7 +31,9 @@ const Register = () => {
           className="form-control"
           placeholder="John Doe"
           required
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
         />
         <input
           type="email"
