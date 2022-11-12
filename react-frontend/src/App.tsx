@@ -27,7 +27,7 @@ function App() {
           <Routes>
             {/*addded new import above */}
             <Route path="/" element={<Home name={name} />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login setName={setName} />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </main>

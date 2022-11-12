@@ -3,7 +3,7 @@ import React, { SyntheticEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { json } from "stream/consumers";
 
-const Login = () => {
+const Login = (props: { setName: (name: string) => void }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
@@ -21,6 +21,7 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((response) => {
+        props.setName(response.data.name);
         setLoggedIn(true);
       })
       .catch((err) => {

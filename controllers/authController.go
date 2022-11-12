@@ -70,7 +70,7 @@ func Login(c *fiber.Ctx) error {
 	cookie := fiber.Cookie{
 		Name:     "jwt",
 		Value:    token,
-		Expires:  time.Now().Add(time.Hour * 24),
+		Expires:  time.Now().Add(time.Hour * 10),
 		HTTPOnly: true,
 	}
 	c.Cookie(&cookie)
@@ -105,7 +105,7 @@ func Logout(c *fiber.Ctx) error {
 	cookie := fiber.Cookie{
 		Name:     "jwt",
 		Value:    "",
-		Expires:  time.Now().Add(-time.Hour),
+		Expires:  time.Now().Add(-time.Second * 1),
 		HTTPOnly: true,
 	}
 	c.Cookie(&cookie)

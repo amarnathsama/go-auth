@@ -2,19 +2,24 @@ import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 const Nav = (props: { name: string; setName: (name: string) => void }) => {
-  const handleLogout = () => {
-    axios
-      .post("http://localhost:8000/api/logout", {
-        withCredentials: true,
-      })
-      .then(() => {
-        props.setName("");
-      });
+  const handleLogout = async () => {
+    // axios.post("http://localhost:8000/api/logout"}).then((response) => {
+    //   props.setName("");
+    //   console.log(response);
+    // });idk why not working
+    await fetch("http://localhost:8000/api/logout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+
+    props.setName("");
   };
 
   let menu;
-
-  if (props.name == "") {
+  // 2022-11-13T19:19:06.272Z
+  // 2022-11-13T20:36:05.254Z
+  if (props.name === "") {
     menu = (
       <div className="navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav me-auto mb-2 mb-md-0">
