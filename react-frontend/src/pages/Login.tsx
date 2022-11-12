@@ -1,19 +1,37 @@
 import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { json } from "stream/consumers";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const submit = async (e: SyntheticEvent) => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [invalidCred, setInvalidCred] = useState(false);
+  const submit = (e: SyntheticEvent) => {
+    setInvalidCred(false);
     e.preventDefault();
-    const response = await axios.post("http://localhost:8000/api/login", {
-      email,
-      password,
-    });
-    const token = response.data.token;
-    console.log(response.data);
-    console.log(token);
+    axios
+      .post(
+        "http://localhost:8000/api/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        setInvalidCred(true);
+      });
   };
+
+  if (loggedIn) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div>
       <form onSubmit={submit}>
@@ -31,7 +49,9 @@ const Login = () => {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-
+        <div style={{ color: "red" }}>
+          {invalidCred ? "invalid email or password" : ""}
+        </div>
         <button className="w-100 btn btn-lg btn-primary" type="submit">
           Sign in
         </button>
