@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
+import API_URL from "../components/static";
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [registered, SetRegistered] = useState(false);
@@ -11,8 +12,8 @@ const Register = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8000/api/register", {
-        name,
+      .post(`${API_URL}/api/register`, {
+        username,
         email,
         password,
       })
@@ -27,13 +28,10 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <h1 className="h3 mb-3 fw-normal">Please register</h1>
         <input
-          type="name"
+          type="username"
           className="form-control"
-          placeholder="John Doe"
-          required
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
+          placeholder="abcd"
+          onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="email"

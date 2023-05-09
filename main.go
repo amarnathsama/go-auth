@@ -3,10 +3,11 @@ package main
 import (
 	"log"
 
-	"github.com/amarnathsama/go-auth/database"
-	"github.com/amarnathsama/go-auth/routes"
+	"github.com/amarnathsama/go-chat-final/database"
+	"github.com/amarnathsama/go-chat-final/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	// "github.com/amarnathsama/go-chat-final/pkg/websocket"
 )
 
 func main() {

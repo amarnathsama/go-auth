@@ -1,19 +1,18 @@
 import axios from "axios";
 import React, { SyntheticEvent, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { json } from "stream/consumers";
-
-const Login = (props: { setName: (name: string) => void }) => {
+import { useNavigate } from "react-router-dom";
+import API_URL from "../components/static";
+const Login = (props: { fetchUser: () => void }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
   const [invalidCred, setInvalidCred] = useState(false);
+  const navigate = useNavigate();
   const submit = (e: SyntheticEvent) => {
     setInvalidCred(false);
     e.preventDefault();
     axios
       .post(
-        "http://localhost:8000/api/login",
+        `${API_URL}api/login`,
         {
           email,
           password,
@@ -21,23 +20,18 @@ const Login = (props: { setName: (name: string) => void }) => {
         { withCredentials: true }
       )
       .then((response) => {
-        props.setName(response.data.name);
-        setLoggedIn(true);
+        props.fetchUser();
+        navigate("/");
       })
       .catch((err) => {
         setInvalidCred(true);
       });
   };
 
-  if (loggedIn) {
-    return <Navigate to="/" />;
-  }
-
   return (
     <div>
       <form onSubmit={submit}>
         <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
         <input
           type="email"
           className="form-control"

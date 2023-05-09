@@ -8,26 +8,31 @@ import Register from "./pages/Register";
 import axios from "axios";
 
 function App() {
-  const [name, setName] = useState("");
-  useEffect(() => {
+  const [username, setUsername] = useState("");
+  async function fetchUser() {
     axios
       .get("http://localhost:8000/api/user", { withCredentials: true })
       .then((response) => {
-        setName(response.data.name);
+        setUsername(response.data.username);
+        console.log(username);
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  useEffect(() => {
+    fetchUser();
   });
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav name={name} setName={setName} />
+        <Nav name={username} setName={setUsername} />
         <main className="form-signin">
           <Routes>
             {/*addded new import above */}
-            <Route path="/" element={<Home name={name} />} />
-            <Route path="/login" element={<Login setName={setName} />} />
+            <Route path="/" element={<Home username={username} />} />
+            <Route path="/login" element={<Login fetchUser={fetchUser} />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </main>

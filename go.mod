@@ -1,4 +1,4 @@
-module github.com/amarnathsama/go-auth
+module github.com/amarnathsama/go-chat-final
 
 go 1.18
 

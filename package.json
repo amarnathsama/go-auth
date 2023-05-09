@@ -1,0 +1,25 @@
+{
+  "name": "go-auth",
+  "version": "1.0.0",
+  "description": "Login system made using GO, React and SQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "back": "go run main.go",
+    "front": "cd react-frontend && npm start",
+    "dev": "concurrently --kill-others \"go run main.go\" \"cd react-frontend && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amarnathsama/go-auth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amarnathsama/go-chat-final/issues"
+  },
+  "homepage": "https://github.com/amarnathsama/go-chat-final#readme",
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
